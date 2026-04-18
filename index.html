@@ -182,69 +182,89 @@
             <!-- SCI Header Block -->
             <div class="font-sans border-b-2 border-black flex print:border-x-2 print:border-t-2 print:border-black">
                 <!-- Logo Upload Area -->
-                <div class="w-1/4 border-r-2 border-black relative p-2 flex items-center justify-center cursor-pointer hover:bg-black-50"
+                <div class="w-1/4 border-r-2 border-black relative p-2 flex items-center justify-center cursor-pointer hover:bg-gray-50"
                      onClick="document.getElementById('logoUpload').click()"
                      title="Click to upload a logo">
                     <input type="file" id="logoUpload" accept="image/*" class="hidden" onchange="handleLogoUpload(this)">
                     <img id="projectLogo" src="" alt="" class="max-h-24 max-w-full object-contain" style="display: none;" />
-                    <div id="logoPlaceholder" class="w-full h-full border-2 border-dashed border-black flex items-center justify-center min-h-[80px]">
-                        <span class="text-black-400 font-bold text-center text-[10pt]">Click to<br/>Insert Logo</span>
+                    <div id="logoPlaceholder" class="w-full h-full border-[1.5px] border-dashed border-gray-300 flex items-center justify-center min-h-[80px]">
+                        <span class="text-black font-bold text-center text-[10pt]">Click to<br/>Insert Logo</span>
                     </div>
                 </div>
 
                 <!-- Project Details Block -->
-                <div class="w-3/4 text-[12pt] leading-tight flex flex-col font-sans">
+                <div class="w-3/4 text-[12pt] leading-tight font-sans bg-white" style="display: grid; grid-template-columns: 24% 24% 14% 14% 6% 18%;">
                     <!-- Row 1 -->
-                    <div class="flex border-b border-black">
-                        <div class="w-[55%] border-r border-black p-1 flex flex-col">
-                            <span class="text-[10pt] text-black-500">Project</span>
-                            <input type="text" class="text-input" value="My Slab Project" oninput="performCalculations()">
-                        </div>
-                        <div class="w-[15%] border-r border-black p-1 flex flex-col">
-                            <span class="text-[10pt] text-black-500">Job No.</span>
-                            <input type="text" class="text-input" value="2023-001" oninput="performCalculations()">
-                        </div>
-                        <div class="w-[30%] p-1 flex flex-col">
-                            <span class="text-[10pt] text-black-500">Panel Location</span>
-                            <input type="text" class="text-input" value="Ground Floor" oninput="performCalculations()">
-                        </div>
+                    <div class="col-span-2 border-r border-b border-black p-1 flex flex-col justify-start">
+                        <span class="text-[8pt] text-black leading-none mb-0.5">Job Title</span>
+                        <input type="text" class="text-input text-[11pt]" value="My slab project" oninput="performCalculations()">
                     </div>
+                    <div class="col-span-2 border-r border-b border-black p-1 flex flex-col justify-start">
+                        <span class="text-[8pt] text-black leading-none mb-0.5">Job No.</span>
+                        <input type="text" class="text-input text-[11pt]" value="12345" oninput="performCalculations()">
+                    </div>
+                    <div class="col-span-1 border-r border-b border-black p-1 flex flex-col justify-start">
+                        <span class="text-[8pt] text-black leading-none mb-0.5">Rev</span>
+                        <input type="text" class="text-input text-[11pt]" value="C" oninput="performCalculations()">
+                    </div>
+                    <div class="col-span-1 border-b border-black p-1 flex flex-col justify-start overflow-hidden">
+                        <span class="text-[8pt] text-black leading-none mb-0.5 whitespace-nowrap">Revised by</span>
+                        <input type="text" class="text-input text-[11pt]" value="DGB, April 06" oninput="performCalculations()">
+                    </div>
+
                     <!-- Row 2 -->
-                    <div class="flex border-b border-black h-12">
-                        <div class="w-[70%] border-r border-black p-1 flex flex-col justify-between">
-                            <span class="text-[10pt] text-black-500">Title</span>
-                            <input type="text" class="text-input text-[12pt] font-bold text-black-800 w-full" value="Slab Design Calculations">
-                        </div>
-                        <div class="w-[30%] p-1 flex items-center justify-center">
-                            <div class="text-center">
-                                <div class="font-bold text-[10pt] tracking-wider text-black-800">Design to BS EN 1992-1-1</div>
+                    <div class="col-span-4 border-r border-b border-black px-1 pt-0.5 pb-0 flex flex-col justify-center">
+                        <span class="text-[8pt] text-black leading-none">Subject</span>
+                        <input type="text" class="text-input text-[12pt] font-bold leading-tight" value="Slab design calculations" oninput="performCalculations()">
+                    </div>
+                    <div class="col-span-2 border-b border-black px-1 py-0 flex items-center justify-center text-center">
+                        <div class="font-bold text-[9pt] leading-tight whitespace-nowrap">Design to BS EN 1993-1-<br/>1:2005</div>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="col-span-4 border-r border-b border-black px-1 pt-0.5 pb-0 flex flex-col justify-center">
+                        <span class="text-[8pt] text-black leading-none mb-0">Client</span>
+                        <input type="text" class="text-input text-[11pt] leading-tight" value="INFRASCOPE ENGINEERING" oninput="performCalculations()">
+                    </div>
+                    <!-- Logo Area (Row 3 & 4) -->
+                    <div class="col-span-2 row-span-2 p-1 flex flex-col items-center justify-center bg-white">
+                        <div class="inline-flex flex-col" style="font-family: Arial, Helvetica, sans-serif; transform: scaleY(1.2); transform-origin: center;">
+                            <div class="font-black text-[#144998] text-[13.5pt] tracking-tighter leading-none mb-[2px] whitespace-nowrap">INFRASCOPE</div>
+                            <div class="w-full flex justify-between text-[#888b8d] font-bold text-[5.5pt] leading-none uppercase">
+                                <span>E</span><span>N</span><span>G</span><span>I</span><span>N</span><span>E</span><span>E</span><span>R</span><span>I</span><span>N</span><span>G</span>
                             </div>
                         </div>
                     </div>
-                    <!-- Row 3 -->
-                    <div class="flex border-b border-black">
-                        <div class="w-full p-1 flex flex-col">
-                            <span class="text-[10pt] text-black-500">Client</span>
-                            <input type="text" class="text-input" value="INFRASCOPE ENGINEERNG" oninput="performCalculations()">
-                        </div>
-                    </div>
+
                     <!-- Row 4 -->
-                    <div class="flex">
-                        <div class="w-[25%] border-r border-black p-1 flex flex-col">
-                            <span class="text-[10pt] text-black-500">Designed by</span>
-                            <input type="text" class="text-input" value="T.M.O" oninput="performCalculations()">
+                    <div class="col-span-4 flex">
+                        <div class="w-1/4 border-r border-black px-1 pt-0.5 pb-0 flex flex-col justify-center">
+                            <span class="text-[7.5pt] text-black leading-none mb-0">Made by</span>
+                            <input type="text" class="text-input text-[11pt] leading-tight" value="TMO" oninput="performCalculations()">
                         </div>
-                        <div class="w-[25%] border-r border-black p-1 flex flex-col">
-                            <span class="text-[10pt] text-black-500">Date</span>
-                            <input type="date" class="text-input font-normal" value="2023-10-27" onchange="performCalculations()">
+                        <div class="w-1/4 border-r border-black px-1 pt-0.5 pb-0 flex flex-col justify-center">
+                            <span class="text-[7.5pt] text-black leading-none mb-0">Date</span>
+                            <div class="flex items-center w-full">
+                                <input type="text" id="madeDate" class="text-input text-[11pt] leading-tight min-w-0 flex-1" value="Nov 2006" oninput="performCalculations()">
+                                <div class="relative w-3.5 h-3.5 ml-1 flex-shrink-0 no-print" title="Pick Date">
+                                    <i class="fas fa-calendar-alt text-gray-400 hover:text-blue-600 text-[9pt] absolute top-0 left-0 pointer-events-none transition-colors"></i>
+                                    <input type="date" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" onchange="updateDateText('madeDate', this.value)">
+                                </div>
+                            </div>
                         </div>
-                        <div class="w-[25%] border-r border-black p-1 flex flex-col">
-                            <span class="text-[10pt] text-black-500">Checked by</span>
-                            <input type="text" class="text-input" value="Eng. John Smith" oninput="performCalculations()">
+                        <div class="w-1/4 border-r border-black px-1 pt-0.5 pb-0 flex flex-col justify-center">
+                            <span class="text-[7.5pt] text-black leading-none mb-0">Checked by</span>
+                            <input type="text" class="text-input text-[11pt] leading-tight" value="JTM" oninput="performCalculations()">
                         </div>
-                        <div class="w-[25%] p-1 flex flex-col">
-                            <span class="text-[10pt] text-black-500">Date</span>
-                            <input type="date" class="text-input font-normal" value="2023-10-27" onchange="performCalculations()">
+                        <div class="w-1/4 border-r border-black px-1 pt-0.5 pb-0 flex flex-col justify-center">
+                            <span class="text-[7.5pt] text-black leading-none mb-0">Date</span>
+                            <div class="flex items-center w-full">
+                                <input type="text" id="checkedDate" class="text-input text-[11pt] leading-tight min-w-0 flex-1" value="Dec 2006" oninput="performCalculations()">
+                                <div class="relative w-3.5 h-3.5 ml-1 flex-shrink-0 no-print" title="Pick Date">
+                                    <i class="fas fa-calendar-alt text-gray-400 hover:text-blue-600 text-[9pt] absolute top-0 left-0 pointer-events-none transition-colors"></i>
+                                    <input type="date" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" onchange="updateDateText('checkedDate', this.value)">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -267,6 +287,18 @@
                 <tbody>
                     <tr>
                         <td class="p-0 align-top">
+
+                            <!-- Section: Arrangement / Description -->
+                            <div class="grid w-full border-b border-black min-h-[2.5rem] text-[12pt] print-avoid-break" style="grid-template-columns: 15% 1fr 20%;">
+                                <div class="border-r border-black p-2 print:p-1 text-[10pt] text-black-500 font-sans flex flex-col justify-center items-center text-center whitespace-pre-line leading-tight">
+                                    See structural<br/>arrangement
+                                </div>
+                                <div class="p-3 print:p-2 text-black-900 leading-snug flex flex-col justify-center">
+                                    <input type="text" class="text-input w-full" value="Consider floor slab at Level 1 - Gridline A1-B2">
+                                </div>
+                                <div class="border-l border-black p-2 print:p-1 flex flex-col justify-center items-center text-center">
+                                </div>
+                            </div>
 
                             <!-- Section: Design Properties -->
                             <div class="grid w-full min-h-[2.5rem] text-[12pt] print-avoid-break" style="grid-template-columns: 15% 1fr 20%;">
@@ -1375,7 +1407,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script>
         // Function to handle local logo upload
         function handleLogoUpload(input) {
@@ -1388,6 +1419,20 @@
                     document.getElementById('logoPlaceholder').style.display = 'none';
                 };
                 reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Function to format and update date fields from picker
+        function updateDateText(targetId, dateString) {
+            if (!dateString) return;
+            const date = new Date(dateString);
+            if (!isNaN(date.getTime())) {
+                const formatted = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.value = formatted;
+                    performCalculations();
+                }
             }
         }
 
