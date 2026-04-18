@@ -31,7 +31,6 @@
         @media print {
             @page { margin: 10mm; }
             body, html { background: white; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-size: 12pt; height: auto !important; min-height: 0 !important; }
-            .no-print { display: none !important; }
             .print-border-none { border: none !important; }
             .page-container { box-shadow: none !important; margin: 0 !important; max-width: 100% !important; padding: 0 !important; min-height: 0 !important; height: auto !important; display: block !important; }
             /* Force the outer wrappers to block to prevent flexbox pagination bugs */
@@ -44,6 +43,9 @@
             .mt-4 { margin-top: 0.25rem !important; }
             .mb-4 { margin-bottom: 0.25rem !important; }
             .p-4 { padding: 0.25rem !important; }
+            
+            /* Place .no-print at the end with higher specificity so it overrides .page-container's display: block !important */
+            body .no-print, .page-container.no-print { display: none !important; }
         }
         
         body {
@@ -166,8 +168,8 @@
 
         <!-- Floating Controls -->
         <div class="fixed bottom-8 right-8 no-print z-50 flex flex-col gap-3 items-end">
-            <button onclick="exportToExcel()" class="bg-green-600 hover:bg-green-700 text-white font-sans font-bold py-3 px-6 rounded-full shadow-lg transition-colors flex items-center gap-2">
-                <i class="fas fa-file-excel"></i> Export Excel
+            <button onclick="window.location.reload()" class="bg-red-600 hover:bg-red-700 text-white font-sans font-bold py-3 px-6 rounded-full shadow-lg transition-colors flex items-center gap-2">
+                <i class="fas fa-sync-alt"></i> Refresh
             </button>
             <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-sans font-bold py-3 px-6 rounded-full shadow-lg transition-colors flex items-center gap-2">
                 <i class="fas fa-print"></i> Print / PDF
@@ -530,6 +532,13 @@
                                         <h3 class="font-bold underline uppercase tracking-wide mt-2 text-center">Flexural Design (One-way)</h3>
                                     </div>
                                     <div class="border-l border-black"></div>
+                                </div>
+                                <div id="oneWayMessageRow" style="display: none;">
+                                    <div class="grid w-full border-b border-black min-h-[2.5rem] text-[12pt] print-avoid-break" style="grid-template-columns: 1fr;">
+                                        <div class="p-3 print:p-2 text-red-600 font-bold text-center">
+                                            Please use the one way slab tool for Design Calculations
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- Wrapper elements for rows -->
                                 <div id="oneWayEffectiveDepthRow" style="display: contents;">
@@ -1121,14 +1130,15 @@
                                 </div>
                             </div>
 
-                            <!-- Section: Serviceability Checks -->
-                            <div class="grid w-full min-h-[2.5rem] text-[12pt] print-avoid-break" style="grid-template-columns: 15% 1fr 20%;">
-                                <div class="border-r border-black"></div>
-                                <div class="p-3 print:p-2 text-black-900 leading-snug flex flex-col justify-center">
-                                    <h3 class="font-bold underline uppercase tracking-wide mt-2 text-center">Serviceability Checks</h3>
+                            <div id="subsequentCalculationsSection" style="display: contents;">
+                                <!-- Section: Serviceability Checks -->
+                                <div class="grid w-full min-h-[2.5rem] text-[12pt] print-avoid-break" style="grid-template-columns: 15% 1fr 20%;">
+                                    <div class="border-r border-black"></div>
+                                    <div class="p-3 print:p-2 text-black-900 leading-snug flex flex-col justify-center">
+                                        <h3 class="font-bold underline uppercase tracking-wide mt-2 text-center">Serviceability Checks</h3>
+                                    </div>
+                                    <div class="border-l border-black"></div>
                                 </div>
-                                <div class="border-l border-black"></div>
-                            </div>
 
                             <!-- Shear Check -->
                             <div class="grid w-full min-h-[2.5rem] text-[12pt] print-avoid-break" style="grid-template-columns: 15% 1fr 20%;">
@@ -1282,6 +1292,8 @@
                                 </div>
                                 <div class="border-l border-black"></div>
                             </div>
+                            
+                            </div> <!-- End subsequentCalculationsSection -->
 
                         </td>
                     </tr>
@@ -1290,14 +1302,75 @@
                 <tfoot class="table-footer-group">
                     <tr>
                         <td class="p-0 border-t-2 border-black bg-white">
-                            <div class="print:flex justify-end items-center p-1 px-4 text-[10pt] font-bold text-black-700">
-                                PAGE 1 OF 1
+                            <div class="print:flex justify-end items-center p-1 px-4 text-[10pt] font-bold text-black-700 min-h-[24px]">
                             </div>
                         </td>
                     </tr>
                 </tfoot>
             </table>
 
+        </div>
+    </div>
+
+    <!-- References Section (Non-Printable) -->
+    <div class="max-w-[21cm] mx-auto bg-white page-container shadow-xl mb-8 print:my-0 p-8 print:p-0 flex flex-col no-print text-[12pt] font-sans">
+        <h2 class="font-bold text-[14pt] mb-6">References</h2>
+        
+        <div class="flex flex-col gap-5 text-black-800 leading-relaxed">
+            <div>
+                BS 8110-1: Structural Use of Concrete<br>
+                British Standards Institution (BSI). (1997). <span class="italic">Structural use of concrete—Part 1: Code of practice for design and construction (BS 8110-1:1997)</span>. BSI.
+            </div>
+            
+            <div>
+                BS 8110-2: Structural Use of Concrete<br>
+                British Standards Institution (BSI). (1985). <span class="italic">Structural use of concrete—Part 2: Code of practice for special circumstances (BS 8110-2:1985)</span>. BSI.
+            </div>
+
+            <div>
+                How to Design Concrete Structures Using Eurocode 2<br>
+                Bond, A. J., Brooker, O., Harris, A. J., Harrison, T., Moss, R. M., Narayanan, R. S., & Webster, R. (2006). <span class="italic">How to design concrete structures using Eurocode 2</span>. MPA The Concrete Centre.
+            </div>
+
+            <div>
+                Eurocode 1: Actions on Structures<br>
+                European Committee for Standardization (CEN). (2002). <span class="italic">Eurocode 1: Actions on structures (EN 1991)</span>. CEN.
+            </div>
+
+            <div>
+                Eurocode 2: Design of Concrete Structures<br>
+                European Committee for Standardization (CEN). (2004). <span class="italic">Eurocode 2: Design of concrete structures (EN 1992-1-1)</span>. CEN.
+            </div>
+
+            <div>
+                Reinforced Concrete Design to Eurocode 2<br>
+                Mosley, B., Bungay, J., & Hulse, R. (2012). <span class="italic">Reinforced concrete design to Eurocode 2</span> (7th ed.). Palgrave Macmillan.
+            </div>
+
+            <div>
+                Design of Reinforced Concrete (R.C.) Slabs<br>
+                Ubani, O. (2020, November). <span class="italic">Design of reinforced concrete (R.C.) slabs</span>. Structville.<br>
+                <a href="https://structville.com/2020/11/design-of-reinforced-concrete-slabs.html" class="text-blue-600 underline" target="_blank">https://structville.com/2020/11/design-of-reinforced-concrete-slabs.html</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Disclaimer Section (Non-Printable) -->
+    <div class="max-w-[21cm] mx-auto bg-white page-container shadow-xl mb-8 print:my-0 p-8 print:p-0 flex flex-col no-print text-[12pt]" style="font-family: 'Times New Roman', Times, serif;">
+        <h2 class="font-bold text-[14pt] text-red-600 mb-6">Disclaimer</h2>
+        
+        <div class="flex flex-col gap-5 text-black-800 leading-relaxed text-justify">
+            <p>
+                All advice or information provided by <strong>INFRASCOPE ENGINEERING</strong> is intended for use by suitably qualified individuals who can assess its relevance, limitations, and applicability. Users assume full responsibility for the interpretation and use of such information.
+            </p>
+            
+            <p>
+                <strong>INFRASCOPE ENGINEERING</strong>, including its stakeholders, partners and advisors, accepts no liability (including negligence) for any loss or damage arising from the use of this information.
+            </p>
+
+            <p>
+                Users are advised that all tools and publications issued by <strong>INFRASCOPE ENGINEERING</strong> may be subject to periodic revision. It is therefore the user’s responsibility to ensure that the most current version is being used.
+            </p>
         </div>
     </div>
 
@@ -1754,13 +1827,14 @@
             if (lyLxRatio > 2) {
                 slabTypeInfoText = `One-way Slab`;
                 document.getElementById('oneWaySlabSection').style.display = 'contents'; 
-                document.getElementById('oneWayEffectiveDepthRow').style.display = 'contents';
-                document.getElementById('oneWayKFactorRow').style.display = 'contents';
-                document.getElementById('oneWayLeverArmRow').style.display = 'contents';
-                document.getElementById('oneWayRequiredAsRow').style.display = 'contents';
-                document.getElementById('oneWayMinAsRow').style.display = 'contents';
-                document.getElementById('oneWayMaxAsRow').style.display = 'contents';
-                document.getElementById('oneWayProvidedAsRow').style.display = 'contents';
+                document.getElementById('oneWayMessageRow').style.display = 'contents';
+                document.getElementById('oneWayEffectiveDepthRow').style.display = 'none';
+                document.getElementById('oneWayKFactorRow').style.display = 'none';
+                document.getElementById('oneWayLeverArmRow').style.display = 'none';
+                document.getElementById('oneWayRequiredAsRow').style.display = 'none';
+                document.getElementById('oneWayMinAsRow').style.display = 'none';
+                document.getElementById('oneWayMaxAsRow').style.display = 'none';
+                document.getElementById('oneWayProvidedAsRow').style.display = 'none';
 
                 document.getElementById('twoWaySlabSection').style.display = 'none'; 
                 document.getElementById('twoWayLyLxRatioRow').style.display = 'none';
@@ -1773,10 +1847,13 @@
                 document.getElementById('Msy_midspan_design_row').style.display = 'none';
                 document.getElementById('Msx_edge_design_row').style.display = 'none';
                 document.getElementById('Msy_edge_design_row').style.display = 'none';
+
+                document.getElementById('subsequentCalculationsSection').style.display = 'none';
             } else {
                 slabTypeInfoText = `Two-way Slab`;
                 isTwoWaySlab = true;
                 document.getElementById('oneWaySlabSection').style.display = 'none'; 
+                document.getElementById('oneWayMessageRow').style.display = 'none';
                 document.getElementById('oneWayEffectiveDepthRow').style.display = 'none';
                 document.getElementById('oneWayKFactorRow').style.display = 'none';
                 document.getElementById('oneWayLeverArmRow').style.display = 'none';
@@ -1796,6 +1873,8 @@
                 document.getElementById('Msy_midspan_design_row').style.display = 'contents';
                 document.getElementById('Msx_edge_design_row').style.display = 'contents';
                 document.getElementById('Msy_edge_design_row').style.display = 'contents';
+
+                document.getElementById('subsequentCalculationsSection').style.display = 'contents';
             }
             document.getElementById('outputSlabType').innerText = slabTypeInfoText;
 
@@ -2675,72 +2754,6 @@
                 textElement.style.transformOrigin = 'center center'; 
             }
             container.appendChild(line); container.appendChild(textElement);
-        }
-
-        function exportToExcel() {
-            const projectData = {
-                Project: document.querySelector('input[value="My Slab Project"]').value,
-                Client: document.querySelector('input[value="INFRASCOPE ENGINEERNG"]').value,
-                'Panel Location': document.querySelector('input[value="Ground Floor"]').value,
-                'Designed by': document.querySelector('input[value="T.M.O"]').value
-            };
-            const docData = {
-                Date: document.querySelector('input[type="date"]').value,
-                'Checked By': document.querySelector('input[value="Eng. John Smith"]').value,
-                'Job No.': document.querySelector('input[value="2023-001"]').value
-            };
-            const designData = {
-                'Slab Length (ly) (mm)': parseFloat(document.getElementById('slabLength').value),
-                'Slab Width (lx) (mm)': parseFloat(document.getElementById('slabWidth').value),
-                'Slab Thickness (mm)': parseFloat(document.getElementById('slabThickness').value),
-                'Concrete Grade': document.getElementById('concreteGrade').value,
-                'Steel Grade': document.getElementById('steelGrade').value,
-                'Cover (mm)': parseFloat(document.getElementById('cover').value),
-                'Main Bar Diameter (mm)': parseFloat(document.getElementById('mainBarDia').value),
-                'Distribution Bar Diameter (mm)': parseFloat(document.getElementById('distBarDia').value)
-            };
-            const loadingData = {
-                'Slab Self-weight (kN/m²)': parseFloat(document.getElementById('selfWeightResult').innerText),
-                'Partitions (kN/m²)': parseFloat(document.getElementById('partitions').value),
-                'Finishes (kN/m²)': parseFloat(document.getElementById('finishes').value),
-                'Point Load (kN)': parseFloat(document.getElementById('pointLoad').value), 
-                'Variable Load (Total) (kN/m²)': parseFloat(document.getElementById('variableLoad').value),
-                'Total Permanent Load (kN/m²)': calculationResults.loading.permanent,
-                'Design Load (ULS) (kN/m²)': calculationResults.loading.design
-            };
-            const resultsData = {
-                'Slab Type': document.getElementById('outputSlabType').innerText,
-                'Max Moment (kNm/m)': calculationResults.flexuralDesign.moment,
-                'Required As (mm²/m)': calculationResults.flexuralDesign.requiredAs,
-                'Provided As (mm²/m)': calculationResults.flexuralDesign.providedAs,
-                'Provided Bars (Main)': calculationResults.flexuralDesign.providedBars,
-                'Effective Depth (mm)': calculationResults.flexuralDesign.effectiveDepth,
-                'Shear Check': document.getElementById('shearCheckResult').innerText,
-                'Deflection Check': document.getElementById('deflectionCheckResult').innerText,
-                'Cracking Check': document.getElementById('crackingCheckResult').innerText
-            };
-            if (calculationResults.slabDimensions.ratio <= 2) {
-                resultsData['Ly/Lx Ratio'] = calculationResults.slabDimensions.ratio; 
-                resultsData['Short Span Midspan Moment (kNm/m)'] = calculationResults.twoWayDesign.MsxMidspan;
-                resultsData['Long Span Midspan Moment (kNm/m)'] = calculationResults.twoWayDesign.MsyMidspan;
-                resultsData['Short Span Edge Moment (kNm/m)'] = calculationResults.twoWayDesign.MsxEdge;
-                resultsData['Long Span Edge Moment (kNm/m)'] = calculationResults.twoWayDesign.MsyEdge;
-                resultsData['Reinforcement Short Span Midspan'] = calculationResults.reinforcement.saggingSx.providedBars;
-                resultsData['Reinforcement Long Span Midspan'] = calculationResults.reinforcement.saggingSy.providedBars;
-                resultsData['Reinforcement Short Span Edge'] = calculationResults.reinforcement.hoggingSx.providedBars;
-                resultsData['Reinforcement Long Span Edge'] = calculationResults.reinforcement.hoggingSy.providedBars;
-            }
-
-            const wb = XLSX.utils.book_new();
-            const projectWS = XLSX.utils.json_to_sheet([projectData]);
-            const designWS = XLSX.utils.json_to_sheet([designData]);
-            const loadingWS = XLSX.utils.json_to_sheet([loadingData]);
-            const resultsWS = XLSX.utils.json_to_sheet([resultsData]);
-            XLSX.utils.book_append_sheet(wb, projectWS, "Project Info");
-            XLSX.utils.book_append_sheet(wb, designWS, "Design Parameters");
-            XLSX.utils.book_append_sheet(wb, loadingWS, "Loading Data");
-            XLSX.utils.book_append_sheet(wb, resultsWS, "Results");
-            XLSX.writeFile(wb, "Slab_Design_Report.xlsx");
         }
 
         document.addEventListener('DOMContentLoaded', function() {
