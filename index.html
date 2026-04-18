@@ -351,7 +351,7 @@
                                         <div>Steel Grade, <span class="math">f<span class="sub">yk</span></span></div>
                                         <div>= 
                                             <select id="steelGrade" class="val-input" onchange="performCalculations()">
-                                            
+                                                <option>415 MPa</option>
                                                 <option>460 MPa</option>
                                                 <option>500 MPa</option>
                                                 <option>550 MPa</option>
@@ -755,7 +755,7 @@
                                 </div>
                                 <div id="twoWayMsyEdgeRow" style="display: none;">
                                     <div class="grid w-full border-b border-black min-h-[2.5rem] text-[12pt] print-avoid-break" style="grid-template-columns: 15% 1fr 20%;">
-                                        <div class="border-r border-black p-2 print:p-1 text-[10px] text-black-500 font-sans flex flex-col justify-center items-center text-center whitespace-pre-line leading-tight">Long Edge M</div>
+                                        <div class="border-r border-black p-2 print:p-1 text-[12px] text-black-500 font-sans flex flex-col justify-center items-center text-center whitespace-pre-line leading-tight">Long Edge M</div>
                                         <div class="p-3 print:p-2 text-black-900 leading-snug flex flex-col justify-center">
                                             <p><span class="font-bold">Long Span Edge Moment: </span><span class="math">M<span class="sub">sy,edge</span> = &beta;<span class="sub">sy</span> &times; n &times; l<span class="sub">x</span>²</span> = <span id="calc_beta_sy"></span> &times; <span id="calc_n_bsy"></span> &times; <span id="calc_lx_bsy"></span>² = <span id="MsyEdgeDisplay" class="font-bold"></span> kNm/m</p>
                                         </div>
@@ -1174,7 +1174,7 @@
 
                             <!-- Shear Check -->
                             <div class="grid w-full min-h-[2.5rem] text-[12pt] print-avoid-break" style="grid-template-columns: 15% 1fr 20%;">
-                                <div class="border-r border-black p-2 print:p-1 text-[10px] text-black-500 font-sans flex flex-col justify-center items-center text-center whitespace-pre-line leading-tight">Cl 6.2.1<br/>Eq 6.2a</div>
+                                <div class="border-r border-black p-2 print:p-1 text-[12px] text-black-500 font-sans flex flex-col justify-center items-center text-center whitespace-pre-line leading-tight">Cl 6.2.1<br/>Eq 6.2a</div>
                                 <div class="p-2 print:p-1 px-3 print:px-2 text-black-900 leading-snug flex flex-col justify-center">
                                     <p class="font-bold mb-1">Shear Resistance, <span class="math">V<span class="sub">Rd,c</span></span></p>
                                     <p><span class="math">V<span class="sub">Ed</span> = <span class="fraction"><span class="numerator">n &times; l<span class="sub">x</span></span><span class="denominator">2</span></span></span> = <span class="fraction"><span class="numerator"><span id="shear_n_val"></span> &times; <span id="shear_lx_val"></span></span><span class="denominator">2</span></span> = <span id="shearEdCalcDisplay" class="font-bold"></span> kN/m</p>
@@ -1221,7 +1221,7 @@
 
                             <!-- Deflection Check -->
                             <div class="grid w-full min-h-[2.5rem] text-[12pt] print-avoid-break" style="grid-template-columns: 15% 1fr 20%;">
-                                <div class="border-r border-black p-2 print:p-1 text-[10px] text-black-500 font-sans flex flex-col justify-center items-center text-center whitespace-pre-line leading-tight">Cl 7.4.2<br/>Table 7.4N</div>
+                                <div class="border-r border-black p-2 print:p-1 text-[12px] text-black-500 font-sans flex flex-col justify-center items-center text-center whitespace-pre-line leading-tight">Cl 7.4.2<br/>Table 7.4N</div>
                                 <div class="p-2 print:p-1 px-3 print:px-2 text-black-900 leading-snug flex flex-col justify-center">
                                     <p class="font-bold mb-1">Deflection Check</p>
                                     <div class="flex items-center gap-2 mb-2">
@@ -1278,7 +1278,7 @@
 
                             <!-- Cracking Check -->
                             <div class="grid w-full min-h-[2.5rem] text-[12pt] print-avoid-break" style="grid-template-columns: 15% 1fr 20%;">
-                                <div class="border-r border-black p-2 print:p-1 text-[10px] text-black-500 font-sans flex flex-col justify-center items-center text-center whitespace-pre-line leading-tight">Cl 7.3.3<br/>Table 7.3N</div>
+                                <div class="border-r border-black p-2 print:p-1 text-[12px] text-black-500 font-sans flex flex-col justify-center items-center text-center whitespace-pre-line leading-tight">Cl 7.3.3<br/>Table 7.3N</div>
                                 <div class="p-2 print:p-1 px-3 print:px-2 text-black-900 leading-snug flex flex-col justify-center">
                                     <p class="font-bold mb-1">Cracking Check</p>
                                     <p><span class="math">n<span class="sub">qp</span> = G<span class="sub">k</span> + &Psi;<span class="sub">2</span> &times; Q<span class="sub">k</span></span> = <span id="cracking_gk"></span> + (<span id="psi2FactorDisplay"></span> &times; <span id="cracking_qk"></span>) = <span id="n_qp_display" class="font-bold"></span> kN/m²</p>
